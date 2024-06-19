@@ -1,9 +1,23 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 ## Getting Started
+### first step
 - Create an app/ folder, then add a layout.tsx and page.tsx file.   
 - These will be rendered when the user visits the root of your application (/).  
 - Create a root layout inside app/layout.tsx with the required <html> and <body> tags
 - Create a home page app/page.tsx with some initial content:
+
+### app Routing Conventions
+[app Routing Conventions](https://nextjs.org/docs/getting-started/project-structure#app-routing-conventions)  
+- layout.tsx: The layout component that wraps all pages.
+  - Layouts do not **receive** searchParams, but can receive  path parameters.
+- page.tsx: The main page component.
+  - Pages **receive** searchParams and path parameters.
+### App Router
+- By default, pages are Server Components. 
+- You can access the route segments through the **params** prop and the URL search params through the **searchParams** prop for a given page.
+
+
+
 
 
 First, run the development server:
