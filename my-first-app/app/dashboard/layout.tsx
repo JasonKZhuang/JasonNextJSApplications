@@ -8,11 +8,18 @@ export default function DashboardLayout(
         <nav className={"flex-row p-5 bg-blue-600"}>
             <ul className={"flex flex-row space-x-4"}>
                 <li className={"hover:bg-blue-400"}>
-                    <a href="/dashboard">Dashboard Home</a>
+                    <a href="/dashboard">Dashboard</a>
                 </li>
                 <li className={"hover:bg-blue-400"}>
-                    <a href="/dashboard/settings">Dashboard Settings</a>
+                    <a href="/dashboard/products">Products</a>
                 </li>
+                <li className={"hover:bg-blue-400"}>
+                    <a href="/dashboard/vehicles">Vehicles</a>
+                </li>
+                <li className={"hover:bg-blue-400"}>
+                    <a href="/dashboard/settings">Settings</a>
+                </li>
+
             </ul>
         </nav>
         {children}

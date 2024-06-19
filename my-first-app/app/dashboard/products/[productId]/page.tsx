@@ -1,13 +1,19 @@
 "use client"
 
-import React, {useState} from 'react';
 import {notFound, useSearchParams} from "next/navigation";
-import {isDigitString} from "@/app/lib/verify";
+import {isDigitString} from "@/app/_lib/verify";
+import {useState} from "react";
+
+type Props ={
+    params: {
+        productId: string
+    }
+}
 
 function SingleProductDetail(
     // this is path parameters like this
     // http://localhost:3000/dashboard/2
-    {params}: { params: { productId: string } }
+    {params}: Props
 ) {
     // this is to get query parameters values like this url
     // http://localhost:3000/dashboard/2?search=dog
@@ -19,7 +25,7 @@ function SingleProductDetail(
     }
 
     return (
-        <div>
+        <div className="flex flex-col items-center justify-start min-h-[calc(100vh-200px)] h-1.5 p-24">
             <h2>This is Product Home page with product id : {params.productId}</h2>
             <h2>and Query parameters value : {searchValue}</h2>
         </div>
@@ -27,3 +33,12 @@ function SingleProductDetail(
 }
 
 export default SingleProductDetail;
+
+
+// const generateMetadata =({params}:Props):Metadata=>{
+//     return {
+//         title: `Product Detail ${params.productId}`,
+//         description: `Product Detail page ${params.productId}`,
+//         keywords: `Product Detail page ${params.productId}`,
+//     }
+// };

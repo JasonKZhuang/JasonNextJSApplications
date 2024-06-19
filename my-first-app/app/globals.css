@@ -25,6 +25,27 @@ body {
     ) rgb(var(--background-start-rgb));
 }
 
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 8px;
+}
+
+/* unvisited link */
+a:link {
+    color: red;
+}
+
+/* mouse over link */
+a:hover {
+    color: hotpink;
+}
+
+/* selected link */
+a:active {
+    color: blue;
+}
+
 button {
     display: inline-block;
     color: #000000;
