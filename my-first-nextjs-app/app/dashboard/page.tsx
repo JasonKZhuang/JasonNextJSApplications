@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useState} from 'react';
-import Link from "next/link";
+import {getRandomInt} from "@/app/_lib/math";
 
 
 function DashboardHome() {
@@ -9,25 +9,24 @@ function DashboardHome() {
     const [message, setMessage] = useState("");
 
     const updateMessage = (newMessage: string) => {
-        setMessage(newMessage + Math.random().toFixed(3));
+        setMessage(newMessage + getRandomInt(1, 100));
+    };
+
+    const handleError = () => {
+        console.log("=========================================================");
+        throw new Error("Test Error");
     };
 
     return (
-        <div className="flex flex-col items-center justify-start min-h-[calc(100vh-140px)] h-1.5 p-24">
-            <div className={"flex flex-row justify-around items-center m-2"}>
-                <h1>This Dashboard Home with message: {message}</h1>
-                <button onClick={() => updateMessage("A new Message")}>
-                    Update Message
-                </button>
-            </div>
-            <div className={"flex flex-row justify-around items-center m-2"}>
-                <div className={"w-[200px] h-[200px] mx-1 px-1 bg-amber-700"}>
-                    Part one
-                </div>
-                <div className={"w-[200px] h-[200px] mx-1 px-1 bg-amber-700"}>
-                    Part two
-                </div>
-            </div>
+        <div className="flex flex-row items-center justify-start p-4">
+            <h1>This Dashboard Home Page </h1>
+            <h2>{message}</h2>
+            <button onClick={() => updateMessage("A Random Integer : ")}>
+                Update Message
+            </button>
+            <button onClick={handleError}>
+                Test Error not works
+            </button>
         </div>
     );
 }

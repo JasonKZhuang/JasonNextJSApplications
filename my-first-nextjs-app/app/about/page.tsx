@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 function AboutPage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-[calc(100vh-140px)] h-1.5 p-24">
-            <Link href={"/"}>Home</Link>
-            <h1>This about  page</h1>
+            <h1>This about page</h1>
+            <Link href={"/"}>Go back to Home</Link>
         </div>
     );
 }

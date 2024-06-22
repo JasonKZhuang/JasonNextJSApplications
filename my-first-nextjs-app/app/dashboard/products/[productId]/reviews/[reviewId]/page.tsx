@@ -13,7 +13,7 @@ function SingleProductReview(
     }
 ) {
     return (
-        <div>
+        <div className="flex flex-col items-center justify-start min-h-[calc(100vh-200px)] h-1.5 p-24">
             <h2>This is Product Review Detail page</h2>
             <h2>with product id : {params.productId}</h2>
             <h2>with review id : {params.reviewId}</h2>
