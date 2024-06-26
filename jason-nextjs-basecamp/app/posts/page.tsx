@@ -1,8 +1,8 @@
 "use client";
 
 import React, {useEffect, useState} from 'react';
-import {IPost} from "@/app/interface/post-interface.ts";
-import {myGetPosts} from "@/app/_lib/service/posts-service.ts";
+import {IPost} from "@/app/interface/post-interface";
+import {myGetPosts} from "@/app/_lib/service/posts-service";
 
 // this is server side rendering
 function PostHomePage() {
@@ -47,12 +47,13 @@ function PostHomePage() {
                 setPosts(postsData);
                 setError(null);
             } catch (err) {
-                setError(err.message);
-                setPosts(null);
-                if (err.name === 'AbortError') {
-                    console.log('Aborted');
-                    return;
+                if (err && (err as Error).message) {
+                    setError((err as Error).message);
                 }
+                if (err && (err as Error).name === 'AbortError') {
+                    console.log('Aborted');
+                }
+                setPosts([]);
             } finally {
                 setLoading(false);
             }
@@ -60,7 +61,7 @@ function PostHomePage() {
 
         if (!posts || posts.length === 0) {
             // callMyPosts().then();
-            fetchDataForPosts();
+            fetchDataForPosts().then();
         }
 
     }, [posts]);

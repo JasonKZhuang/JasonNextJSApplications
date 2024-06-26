@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Loading() {
+function UserLoading() {
     return (
         <dialog className={"w-full h-full flex flex-col justify-center items-center bg-amber-300"}>
-            Loading
+            Loading.............
         </dialog>
     );
 }
 
-export default Loading;
+export default UserLoading;

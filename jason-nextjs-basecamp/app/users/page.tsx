@@ -1,7 +1,8 @@
 import React, {Suspense } from 'react';
-import ModalDialog from "@/app/components/dialog/modal-dialog.tsx";
 import Link from "next/link";
-import UserList from "@/app/components/user/user-list.tsx";
+import ModalDialog from "@/app/components/dialog/modal-dialog";
+import UserLoading from "@/app/users/loading";
+import UserList from "@/app/components/user/user-list";
 
 function UserHomePage() {
 
@@ -32,7 +33,7 @@ function UserHomePage() {
                     voluptates magni, tenetur eos ea aliquid, assumenda, voluptas atque voluptatum iste odit magnam
                     necessitatibus dolorum excepturi odio?</p>
             </section>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<UserLoading/>}>
                 <UserList/>
             </Suspense>
         </div>

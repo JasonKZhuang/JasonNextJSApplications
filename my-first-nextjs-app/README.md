@@ -16,7 +16,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - By default, pages are Server Components. 
 - You can access the route segments through the **params** prop and the URL search params through the **searchParams** prop for a given page.
 
-
+### Parallel Routes
 
 
 

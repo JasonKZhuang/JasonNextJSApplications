@@ -1,24 +1,35 @@
 "use client"
 
-import React, {useEffect} from 'react';
-import UserDataService from "@/app/_lib/service/user-data-service.tsx";
-import {IUser} from "@/app/interface/user-interface.ts";
+import React, {useEffect, useState} from 'react';
+import {IUser} from "@/app/interface/user-interface";
+import UserDataService from "@/app/_lib/service/user-data-service";
 
 
 function UserList() {
-
+    //
     const [users, setUsers] = React.useState<IUser[]>([]);
-
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    //
     const handleLoadUsersByAwait = async () => {
-        const data = await UserDataService.getInstance().myGetUserDataByFetch();
-        if (data) {
-            setUsers(data);
+        setLoading(true);
+        try {
+            const data = await UserDataService.getInstance().myGetUserDataByFetch();
+            if (data) {
+                setUsers(data);
+            }
+        } catch (error) {
+            if (error && (error as Error).message) {
+                setError((error as Error).message);
+            }
+        } finally {
+            setLoading(false);
         }
     }
-
+    //
     useEffect(() => {
-        console.log(users);
-        if (!users || users.length===0) {
+
+        if (!users || users.length === 0) {
             handleLoadUsersByAwait().then();
         }
 
@@ -30,7 +41,18 @@ function UserList() {
                     onClick={handleLoadUsersByAwait}>
                 Load
             </button>
-
+            {
+                loading &&
+                <dialog className={"w-full h-full flex flex-col justify-center items-center bg-gray-400 bg-opacity-50"}>
+                    <h1>Loading</h1>
+                </dialog>
+            }
+            {
+                error &&
+                <div className={"w-full h-full flex flex-col justify-center items-center bg-red-300"}>
+                    <span>{error}</span>
+                </div>
+            }
             <div className={"grid grid-cols-4 gap-4"}>
                 {
                     users && users.map((it, index) => {
