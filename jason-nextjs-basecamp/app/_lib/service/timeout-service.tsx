@@ -1,6 +1,19 @@
 import {setTimeout as promiseDelay} from "timers/promises";
 
-class MyTimeoutService{
+class TimeoutService{
+
+    private static instance: TimeoutService;
+
+    private constructor() {
+    }
+
+    static getInstance() {
+        if (this.instance) {
+            return this.instance;
+        }
+        this.instance = new TimeoutService();
+        return this.instance;
+    }
 
     oldStyleMethod = () => {
         console.log('It will be printed 1-st');
@@ -28,4 +41,4 @@ class MyTimeoutService{
 
 }
 
-export default MyTimeoutService;
+export default TimeoutService;

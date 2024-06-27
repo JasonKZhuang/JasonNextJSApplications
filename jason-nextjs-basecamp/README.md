@@ -24,6 +24,21 @@ npm run lint # to lint the code
 npm run build # to build the app
 npm run start # to run the app in production mode
 ```
+
+### [Understand the project structure](https://nextjs.org/docs/getting-started/project-structure)  
+- Create an app/ folder, then add a layout.tsx and page.tsx file.
+- These will be rendered when the user visits the root of your application (/).
+- Create a root layout inside app/layout.tsx with the required <html> and <body> tags
+- Create a home page app/page.tsx with some initial content:
+- [app Routing Conventions](https://nextjs.org/docs/getting-started/project-structure#app-routing-conventions)
+- By default, pages are Server Components.
+- You can access the route segments through the **params** prop and the URL search params through the **searchParams** prop for a given page.
+
+### [Routing File Conventions and Component Hierarchy](https://nextjs.org/docs/app/building-your-application/routing)  
+
+### [Please see my Notion Next.js]
+
+
 ### Tasks
 1. Add a navigation bar, sticky to the top of the page, with the following links:
     - Home
@@ -40,6 +55,8 @@ npm run start # to run the app in production mode
 [Modal in Next.js](https://www.youtube.com/watch?v=fwq9vePfwkI)  
 [Server Actions in Next.js ](https://www.youtube.com/watch?v=BmUsDuLO598)  
 [React Query - Complete Tutorial](https://www.youtube.com/watch?v=8K1N3fE-cDs)  
+[Using Forms in Next.js](https://www.youtube.com/watch?v=dDpZfOQBMaU)  
+
 
 ### Public data APIs 
 [{JSON} Placeholder](https://jsonplaceholder.typicode.com)  

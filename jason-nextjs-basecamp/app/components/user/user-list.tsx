@@ -1,20 +1,24 @@
 "use client"
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {IUser} from "@/app/interface/user-interface";
 import UserDataService from "@/app/_lib/service/user-data-service";
+import Link from "next/link";
 
+type UserListProps = {
+    argUsers: IUser[]
+}
 
-function UserList() {
+function UserList({argUsers}: UserListProps) {
     //
-    const [users, setUsers] = React.useState<IUser[]>([]);
+    const [users, setUsers] = React.useState<IUser[]>(argUsers);
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     //
     const handleLoadUsersByAwait = async () => {
         setLoading(true);
         try {
-            const data = await UserDataService.getInstance().myGetUserDataByFetch();
+            const data = await UserDataService.getInstance().myGetUsersByFetch();
             if (data) {
                 setUsers(data);
             }
@@ -26,14 +30,6 @@ function UserList() {
             setLoading(false);
         }
     }
-    //
-    useEffect(() => {
-
-        if (!users || users.length === 0) {
-            handleLoadUsersByAwait().then();
-        }
-
-    }, [users]);
 
     return (
         <>
@@ -43,7 +39,7 @@ function UserList() {
             </button>
             {
                 loading &&
-                <dialog className={"w-full h-full flex flex-col justify-center items-center bg-gray-400 bg-opacity-50"}>
+                <dialog className={"w-full h-full flex flex-col justify-center items-center bg-gray-600 bg-opacity-50"}>
                     <h1>Loading</h1>
                 </dialog>
             }
@@ -61,7 +57,7 @@ function UserList() {
                                  className={"flex flex-col justify-center items-center p-5 bg-blue-400 w-auto h-auto mx-2 my-2"}
                             >
                                 <span>{it.id}</span>
-                                <span>{it.name}</span>
+                                <span className={"text-red-700"}><Link href={`/users/${it.id}`}> {it.name}</Link></span>
                                 <span>{it.email}</span>
                             </div>);
                     })
