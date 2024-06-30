@@ -3,7 +3,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders} from "axios";
 import {IPost} from "@/app/interface/post-interface";
 
-const fetchingTimeout = 3000;
+const fetchingTimeout = 2000;
 
 /**
  * using Axios to fetch data
@@ -52,10 +52,12 @@ export async function myAddPost(argPost: IPost): Promise<IPost | null> {
         if (data) {
             return data;
         }
-        return null;
     } catch (err) {
-        throw new Error(err);
+        if (err instanceof Error) {
+            throw new Error(err.message);
+        }
     }
+    return null;
 
 }
 

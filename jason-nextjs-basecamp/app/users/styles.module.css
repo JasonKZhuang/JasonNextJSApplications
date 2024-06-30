@@ -1,0 +1,15 @@
+.userContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 10px;
+    background-color: burlywood;
+    width: 100%;
+}
+
+.userH2{
+    font-size: 20pt;
+    font-weight: bold;
+    color: red;
+}

@@ -3,7 +3,7 @@
 
 import React from 'react';
 import {QueryClient, QueryClientProvider} from "react-query";
-import PostList from "@/app/components/posts/post-list";
+import PostList from "@/app/_components/posts/post-list";
 
 const queryClient = new QueryClient();
 

@@ -14,6 +14,9 @@ export default function UserLayout({
 }>) {
     return (
         <>
+            <div className={"bg-green-400 h-10 flex flex-col justify-center items-center"}>
+                User Layout.tsx Contents
+            </div>
             {children}
         </>
     );

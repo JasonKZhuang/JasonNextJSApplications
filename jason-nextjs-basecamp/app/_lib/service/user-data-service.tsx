@@ -1,7 +1,7 @@
 import {IUser} from "@/app/interface/user-interface";
 import axios, {AxiosRequestConfig} from "axios";
 
-const fetchingTimeout = 3000;
+const fetchingTimeout = 2000;
 
 class UserDataService {
 
@@ -43,6 +43,7 @@ class UserDataService {
      * using Fetch API with AbortController signal and revalidate option
      */
     public myGetUsersByFetch = async (): Promise<IUser[]> => {
+        console.log("Fetching user data at " + new Date().toLocaleTimeString());
         const endpoint ="https://jsonplaceholder.typicode.com/users";
         //
         const abortController = new AbortController();
@@ -55,8 +56,10 @@ class UserDataService {
             headers: {
                 "Content-Type": "application/json"
             },
-            //cache: "force-cache", // this is default
-            next: {revalidate: fetchingTimeout},
+            cache: "no-cache", // this is default
+            // next: {
+            //     revalidate: 60
+            // }, // seconds
             signal: abortController.signal
         });
 
@@ -64,7 +67,7 @@ class UserDataService {
             throw new Error("Failed to fetch user data");
         }
 
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+        await new Promise((resolve) => setTimeout(resolve, fetchingTimeout));
 
         if (tmpUsersRes) {
             return await tmpUsersRes.json();

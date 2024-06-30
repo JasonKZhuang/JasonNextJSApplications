@@ -1,0 +1,13 @@
+.h1 {
+    font-size: 20pt;
+    border-bottom: 30px solid black;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+}
+
+.link {
+    color: white;
+    text-decoration: underline;
+    margin: 5px;
+    padding: 5px;
+}
