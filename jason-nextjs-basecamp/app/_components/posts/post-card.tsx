@@ -1,5 +1,5 @@
 import React from 'react';
-import {IPost} from "@/app/interface/post-interface";
+import {IPost} from "@/app/_interface/post-interface";
 
 type PostCardProps = {
     post: IPost

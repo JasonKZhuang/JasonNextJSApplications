@@ -3,11 +3,11 @@
 import React from 'react';
 import {QueryClient, useMutation, useQuery} from "react-query";
 import {myAddPost, myGetAllPosts} from "@/app/_lib/service/posts-service";
-import {IPost} from "@/app/interface/post-interface";
+import {IPost} from "@/app/_interface/post-interface";
 import PostCard from "@/app/_components/posts/post-card";
 
 const queryClient = new QueryClient();
-// react query can be used in client side rendering only
+// react clientQuery can be used in client side rendering only
 function PostList() {
     const [title, setTitle] = React.useState<string>("");
     const [body, setBody] = React.useState<string>("");

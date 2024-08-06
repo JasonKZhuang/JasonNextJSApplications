@@ -23,9 +23,6 @@ async function getData() {
     return res.json()
 }
 
-
-
-
 async function UserHomePage() {
     // using await to get data from server side
     const users = await UserDataService.getInstance().myGetUsersByFetch();

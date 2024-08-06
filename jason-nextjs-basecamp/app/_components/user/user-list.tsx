@@ -1,7 +1,7 @@
 "use server";
 
 import React from 'react';
-import {IUser} from "@/app/interface/user-interface";
+import {IUser} from "@/app/_interface/user-interface";
 import Link from "next/link";
 
 

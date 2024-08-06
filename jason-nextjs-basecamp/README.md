@@ -1,4 +1,8 @@
 ## Getting Started
+[next-learn GitHub Repo Starter](https://github.com/vercel/next-learn/tree/main/dashboard/starter-example)  
+[next-learn GitHub Repo Final](https://github.com/vercel/next-learn/tree/main/dashboard/final-example)  
+[Setting Up Your Database](https://nextjs.org/learn/dashboard-app/setting-up-your-database)  
+
 ### Create Next.js App
 ```shell
 npx create-next-app@latest --ts
@@ -19,10 +23,10 @@ npx create-next-app@latest --ts
 
 ```bash
 
-npm run dev # to run the app in dev mode  
-npm run lint # to lint the code
-npm run build # to build the app
-npm run start # to run the app in production mode
+pnpm dev # to run the app in dev mode  
+pnpm lint # to lint the code
+pnpm build # to build the app
+pnpm start # to run the app in production mode
 ```
 
 ### [Understand the project structure](https://nextjs.org/docs/getting-started/project-structure)  
@@ -36,7 +40,21 @@ npm run start # to run the app in production mode
 
 ### [Routing File Conventions and Component Hierarchy](https://nextjs.org/docs/app/building-your-application/routing)  
 
-### [Please see my Notion Next.js]
+### CSS Styling
+1. global css added into root layout.tsx
+2. Tailwind CSS configuration added into tailwind.config.js and global css
+3. CSS Modules added into the components folder,
+   CSS Modules allow you to scope CSS to a component by automatically creating unique class names, so you don't have to worry about style collisions as well.  
+4. [clsx library is used to combine multiple classes](https://github.com/lukeed/clsx)  
+
+### Optimizing Fonts and Images
+1. next/font module, It downloads font files at build time and hosts them with your other static assets.
+2. next/image
+
+### Layouts and Pages
+
+
+
 
 
 ### Tasks
@@ -56,12 +74,12 @@ npm run start # to run the app in production mode
 [Server Actions in Next.js ](https://www.youtube.com/watch?v=BmUsDuLO598)  
 [React Query - Complete Tutorial](https://www.youtube.com/watch?v=8K1N3fE-cDs)  
 [Using Forms in Next.js](https://www.youtube.com/watch?v=dDpZfOQBMaU)  
-
+[prisma ORM](https://www.prisma.io/)  
 
 ### Public data APIs 
 [{JSON} Placeholder](https://jsonplaceholder.typicode.com)  
 [Restcountries](https://restcountries.com/v2/all)  
- 
+[MockAPI](https://mockapi.io/)   
 
 
 

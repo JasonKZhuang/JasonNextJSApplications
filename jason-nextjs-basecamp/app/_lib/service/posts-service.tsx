@@ -1,7 +1,7 @@
 "use server";
 
 import axios, {AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders} from "axios";
-import {IPost} from "@/app/interface/post-interface";
+import {IPost} from "@/app/_interface/post-interface";
 
 const fetchingTimeout = 2000;
 

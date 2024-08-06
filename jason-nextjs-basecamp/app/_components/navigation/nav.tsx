@@ -8,6 +8,8 @@ function NavBar() {
                 <li className={"mx-1 p-2"}><Link href={"/"}>Home</Link></li>
                 <li className={"mx-1 p-2"}><Link href={"/users"}>Users (Server Side)</Link></li>
                 <li className={"mx-1 p-2"}><Link href={"/posts"}>Posts (Client Side)</Link></li>
+                <li className={"mx-1 p-2"}><Link href={"/posts/clientQuery"}>Posts Query (Client Side)</Link></li>
+                <li className={"mx-1 p-2"}><Link href={"/posts/serverQuery"}>Posts Query (Server Side)</Link></li>
                 <li className={"mx-1 p-2"}><Link href={"/vehicles"}>Vehicles (Server Side)</Link></li>
                 <li className={"mx-1 p-2"}><Link href={"/products"}>Products (Client Side)</Link></li>
 

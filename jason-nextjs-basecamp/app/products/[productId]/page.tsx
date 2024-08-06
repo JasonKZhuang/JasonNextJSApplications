@@ -21,7 +21,7 @@ function SingleProductDetail({params}: Props) {
     console.log(tmpParams);
     const [productId2, setProductId2] = useState(tmpParams.productId);
 
-    // this is to get query parameters values by using useSearchParams() hook
+    // this is to get clientQuery parameters values by using useSearchParams() hook
     // http://localhost:3000/products/2?search=dog
     const searchParams = useSearchParams();
     searchParams.forEach((value, key) => {

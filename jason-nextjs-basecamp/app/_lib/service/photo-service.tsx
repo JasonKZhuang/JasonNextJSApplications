@@ -1,4 +1,4 @@
-import {IPhoto} from "@/app/interface/photo-interface";
+import {IPhoto} from "@/app/_interface/photo-interface";
 import {cache} from 'react'
 
 const abortController = new AbortController();

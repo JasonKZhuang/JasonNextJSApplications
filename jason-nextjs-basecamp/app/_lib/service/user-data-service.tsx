@@ -1,4 +1,4 @@
-import {IUser} from "@/app/interface/user-interface";
+import {IUser} from "@/app/_interface/user-interface";
 import axios, {AxiosRequestConfig} from "axios";
 
 const fetchingTimeout = 2000;

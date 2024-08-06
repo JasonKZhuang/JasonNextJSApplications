@@ -6,6 +6,7 @@ export default function Home() {
                        "p-24 " +
                        "min-h-screen"}>
           <h1>This is home page</h1>
+          <Link href={"/movie"}>Movie</Link>
       </main>
   );
 }

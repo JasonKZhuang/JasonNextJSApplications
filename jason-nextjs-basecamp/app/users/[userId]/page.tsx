@@ -1,9 +1,9 @@
 "use server";
 
 import React, {Suspense} from 'react';
-import {IUser} from "@/app/interface/user-interface";
+import {IUser} from "@/app/_interface/user-interface";
 import UserDataService from "@/app/_lib/service/user-data-service";
-import {IPost} from "@/app/interface/post-interface";
+import {IPost} from "@/app/_interface/post-interface";
 import {myGetPostsByUserId} from "@/app/_lib/service/posts-service";
 import UserLoading from "@/app/users/loading";
 import UserPosts from "@/app/_components/posts/user-posts";

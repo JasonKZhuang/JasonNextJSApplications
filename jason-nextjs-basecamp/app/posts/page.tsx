@@ -1,5 +1,5 @@
 "use client";
-// react query can be used in client side rendering only
+// react clientQuery can be used in client side rendering only
 
 import React from 'react';
 import {QueryClient, QueryClientProvider} from "react-query";

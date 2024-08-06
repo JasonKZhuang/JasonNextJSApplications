@@ -15,7 +15,7 @@ type VehiclePageProps = {
 function VehiclePage(
     {params, searchParams}: VehiclePageProps
 ) {
-    console.log("=== Server side path parameters and query parameters ===")
+    console.log("=== Server side path parameters and clientQuery parameters ===")
     console.log(params);
     console.log(params.slug);
     console.log(searchParams);

@@ -1,4 +1,4 @@
-import {IUser} from "@/app/interface/user-interface";
+import {IUser} from "@/app/_interface/user-interface";
 
 export async function fetchTemplateServiceGet(): Promise<IUser[] | null> {
     const endpoint = "https://jsonplaceholder.typicode.com/users";

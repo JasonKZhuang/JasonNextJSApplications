@@ -1,6 +1,6 @@
 import type {Metadata} from "next";
-import "./globals.css";
-import NavBar from "@/app/_components/navigation/nav";
+import "@/app/_styles/globals.css";
+import { inter } from '@/app/_components/fonts';
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -8,14 +8,16 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                       children,
+                                      children,
                                    }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
         <html lang="en">
-            <body className={"bg-slate-800"}>
-                <NavBar/>
+            <body suppressContentEditableWarning={true}
+                  className={`${inter.className} antialiased`}
+            >
+                {/*Tailwind antialiased class which smooths out the font.*/}
                 {children}
             </body>
         </html>

@@ -1,4 +1,4 @@
-import {IPost} from "@/app/interface/post-interface";
+import {IPost} from "@/app/_interface/post-interface";
 
 type UserPostsProps = {
     promise: Promise<IPost[]>;
