@@ -1,10 +1,9 @@
 "use client";
 
 import React from 'react';
-import {QueryClient, QueryClientProvider, useQuery} from "react-query";
+import {QueryClient, QueryClientProvider, useQuery} from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
-
 
 export default function UseReactQueryPage() {
     return (
@@ -14,7 +13,7 @@ export default function UseReactQueryPage() {
     );
 }
 
-export function Posts() {
+function Posts() {
 
     const {data, isPending, error} = useQuery({
         queryKey: ['posts'],

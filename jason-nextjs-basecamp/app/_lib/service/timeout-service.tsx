@@ -34,8 +34,8 @@ class TimeoutService{
 
     }
 
-    newStyleDelay = async () =>{
-        await promiseDelay(5000);
+    newStyleDelay = async (argMilliSeconds: number) =>{
+        await promiseDelay(argMilliSeconds);
         console.log('It will be printed 3-rd with delay');
     }
 

@@ -53,8 +53,41 @@ pnpm start # to run the app in production mode
 
 ### Layouts and Pages
 
+### set up Next.js with Prisma
+[Prisma ORM with PostgreSQL](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-typescript-postgresql)  
+ ```shell
+ npx prisma init
+ ```
 
+✔ Your Prisma schema was created at prisma/schema.prisma
+You can now open it in your favorite editor.
 
+Next steps:
+1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
+2. Set the provider of the datasource block in schema.prisma to match your database: postgresql, mysql, sqlite, sqlserver, mongodb or cockroachdb.
+3. Run prisma db pull to turn your database schema into a Prisma schema.
+4. Run prisma generate to generate the Prisma Client. You can then start querying your database.
+5. Tip: Explore how you can extend the ORM with scalable connection pooling, global caching, and real-time database events. Read: https://pris.ly/beyond-the-orm
+
+To map your data model to the database schema, you need to use the prisma migrate CLI commands:
+```shell
+npx prisma migrate dev --name init
+```
+This command does two things:
+- It creates a new SQL migration file for this migration
+- It runs the SQL migration file against the database
+  
+[Install and generate Prisma Client](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/install-prisma-client-typescript-postgresql#install-and-generate-prisma-client)  
+```shell
+npm install @prisma/client
+```
+Whenever you update your Prisma schema, you will have to update your database schema using either 
+```shell
+prisma migrate dev
+#or
+prisma db push
+```
+This will keep your database schema in sync with your Prisma schema. The commands will also regenerate Prisma Client.
 
 
 ### Tasks
@@ -64,6 +97,17 @@ pnpm start # to run the app in production mode
     - Services
     - Contact
 2. add a loading page, but loading page is rubbish, we cannot mix client side rendering and server side rendering
+3. Deciding where to place your Suspense boundaries  
+   Where you place your Suspense boundaries will depend on a few things:  
+   - How you want the user to experience the page as it streams.
+   - What content you want to prioritize.
+   - If the components rely on data fetching.
+4. Partial PreRendering (PPR) (https://nextjs.org/learn/dashboard-app/partial-prerendering)    
+
+
+
+
+
 
 
 
