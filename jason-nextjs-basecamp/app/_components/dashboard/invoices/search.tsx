@@ -5,8 +5,15 @@ import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {useDebouncedCallback} from "use-debounce";
 
 export default function Search({placeholder}: { placeholder: string }) {
+    // using useSearchParams to get the query parameter from the URL like ?param1=value1&param2=value2
     const searchParams = useSearchParams();
+    // Iterating the search parameters
+    for (const [key, value] of searchParams) {
+        console.log(`[key:${key}]`,`[value:${value}]`);
+    }
+
     const pathname = usePathname();
+    console.log('pathname:', pathname);
     const {replace} = useRouter();
 
     // Inside the Search Component
@@ -14,6 +21,7 @@ export default function Search({placeholder}: { placeholder: string }) {
         // URLSearchParams is a Web API that provides utility methods for manipulating the URL query parameters.
         // Instead of creating a complex string literal, you can use it to get the params string like ?page=1&query=a
         const params = new URLSearchParams(searchParams);
+        console.log(`term is ${term}`);
         if (term) {
             params.set('query', term);
         } else {

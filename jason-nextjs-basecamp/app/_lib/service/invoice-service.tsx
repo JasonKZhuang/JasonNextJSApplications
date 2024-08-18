@@ -1,10 +1,43 @@
+"use server"
+
 import {formatCurrency} from "@/app/_lib/utils/utils";
-import {LatestInvoice} from "@/app/_lib/definitions";
-import {PrismaClient} from "@prisma/client";
+import {CustomerField, LatestInvoice} from "@/app/_lib/definitions";
 import {IInvoiceResponse} from "@/app/_interface/invoice-interface";
+import {z} from 'zod';
+import {revalidatePath} from "next/cache";
+import {redirect} from "next/navigation";
+import {PrismaClient} from "@prisma/client";
+import {now} from "oblivious-set";
 
 const prisma = new PrismaClient();
 const ITEMS_PER_PAGE = 6;
+
+const FormSchema = z.object({
+    id: z.string(),
+    customer_id: z.string({
+        invalid_type_error: 'Please select a customer.',
+    }),
+    amount: z.coerce
+        .number()
+        .gt(0, {message: 'Please enter an amount greater than $0.'}),
+    status: z.enum(['pending', 'paid'], {
+        invalid_type_error: 'Please select an invoice status.',
+    }),
+    date: z.string(),
+});
+
+const CreateInvoice = FormSchema.omit({id: true, date: true});
+const UpdateInvoice = FormSchema.omit({id: false, date: true});
+
+export type State = {
+    errors?: {
+        customer_id?: string[];
+        amount?: string[];
+        status?: string[];
+    };
+    message?: string | null;
+};
+
 
 export async function fetchLatestInvoiceByPrisma(): Promise<LatestInvoice[]> {
     try {
@@ -27,7 +60,7 @@ export async function fetchLatestInvoiceByPrisma(): Promise<LatestInvoice[]> {
             }
         );
         prisma.$disconnect();
-        const latestInvoices: LatestInvoice[] = data.map((invoice) => {
+        return data.map((invoice) => {
             return {
                 id: invoice.id,
                 amount: formatCurrency(invoice.amount),
@@ -36,8 +69,6 @@ export async function fetchLatestInvoiceByPrisma(): Promise<LatestInvoice[]> {
                 email: invoice.customer.email,
             }
         });
-
-        return latestInvoices;
 
     } catch (error) {
         console.error('Database Error:', error);
@@ -129,7 +160,7 @@ export async function fetchFilteredInvoices(query: string, currentPage: number,)
             inv.amount::text ILIKE ${`%${query}%`} OR
             inv.date::text ILIKE ${`%${query}%`} OR
             inv.status ILIKE ${`%${query}%`}
-          ORDER BY inv.date DESC
+          ORDER BY inv.date DESC, inv.updated_at DESC
           LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
         `;
         prisma.$disconnect();
@@ -153,6 +184,7 @@ export async function fetchFilteredInvoices(query: string, currentPage: number,)
 interface CountData {
     count: number;
 }
+
 export async function fetchInvoicesPages(query: string) {
     try {
         const countData = await prisma.$queryRaw`
@@ -168,39 +200,152 @@ export async function fetchInvoicesPages(query: string) {
                 inv.status ILIKE ${`% ${query}%`}
             )
         `;
-        const totalPages = Math.ceil(Number((countData as CountData[])[0].count) / ITEMS_PER_PAGE);
-        return totalPages;
+        prisma.$disconnect();
+        return Math.ceil(Number((countData as CountData[])[0].count) / ITEMS_PER_PAGE);
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch total number of invoices.');
     }
 }
 
+export async function fetchCustomers() {
+    try {
+        const data: CustomerField[] = await prisma.customer.findMany({
+            select: {
+                id: true,
+                name: true,
+            },
+            orderBy: {
+                name: 'asc',
+            }
+        });
+        prisma.$disconnect();
+        return data;
+    } catch (err) {
+        console.error('Database Error:', err);
+        throw new Error('Failed to fetch all customers.');
+    }
+}
 
-/*
+export async function createInvoice(formData) {
+    // Validate form fields using Zod
+    const validatedFields = CreateInvoice.safeParse({
+        customer_id: formData.customer_id,
+        amount: formData.amount,
+        status: formData.status,
+    });
+
+    // If form validation fails, return errors early. Otherwise, continue.
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Missing Fields. Failed to Create Invoice.',
+        };
+    }
+
+    // Prepare data for insertion into the database
+    const {customer_id, amount, status} = validatedFields.data;
+    const amountInCents = amount * 100;
+    const date = new Date()
+    // Insert data into the database
+    // console.log(customer_id, amountInCents, status, date);
+    try {
+        const myInvoice = await prisma.invoice.create({
+            data: {
+                customer_id: customer_id,
+                amount: amountInCents,
+                status: status,
+                date: date,
+                created_at: new Date(),
+                updated_at: new Date(),
+            },
+        });
+        prisma.$disconnect();
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to Create Invoice.');
+    }
+    // // Revalidate the cache for the invoices page and redirect the user.
+    revalidatePath('/dashboard/invoices');
+    redirect('/dashboard/invoices');
+}
+
+export async function updateInvoice(formData): Promise<State | null> {
+    const validatedFields = UpdateInvoice.safeParse({
+        id: formData.id,
+        customer_id: formData.customer_id,
+        amount: formData.amount,
+        status: formData.status,
+    });
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Missing Fields. Failed to Update Invoice.',
+        };
+    }
+
+    const {id, customer_id, amount, status} = validatedFields.data;
+    const amountInCents = amount * 100;
+    const myDate = new Date()
+    // console.log(id, customer_id, amountInCents, status, myDate);
+    try {
+        const myUpdatedInvoice = await prisma.invoice.update({
+            where: {
+                id: id,
+            },
+            data: {
+                customer_id: customer_id,
+                amount: amountInCents,
+                status: status,
+                date: myDate,
+                updated_at: new Date(),
+            },
+        });
+        prisma.$disconnect();
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to Update Invoice.');
+    }
+    revalidatePath('/dashboard/invoices');
+    redirect('/dashboard/invoices');
+}
+
 export async function fetchInvoiceById(id: string) {
     try {
-        const data = await sql<InvoiceForm>`
-      SELECT
-        invoices.id,
-        invoices.customer_id,
-        invoices.amount,
-        invoices.status
-      FROM invoices
-      WHERE invoices.id = ${id};
-    `;
-
-        const invoice = data.rows.map((invoice) => ({
-            ...invoice,
-            // Convert amount from cents to dollars
-            amount: invoice.amount / 100,
-        }));
-
-        return invoice[0];
+        const data = await prisma.invoice.findUnique({
+            where: {
+                id: id,
+            },
+            select: {
+                id: true,
+                customer_id: true,
+                amount: true,
+                status: true,
+            },
+        });
+        prisma.$disconnect();
+        return {
+            ...data,
+            amount: data.amount / 100,
+        }
     } catch (error) {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch invoice.');
     }
 }
 
-*/
+export async function deleteInvoice(id: string) {
+    // throw new Error('Failed to Delete Invoice');
+    try {
+        const myDeletedObject = await prisma.invoice.delete({
+            where: {
+                id: id,
+            },
+        })
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to delete invoice.');
+    }
+    revalidatePath('/dashboard/invoices');
+}

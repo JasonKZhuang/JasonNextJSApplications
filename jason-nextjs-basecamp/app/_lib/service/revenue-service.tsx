@@ -11,7 +11,7 @@ export async function fetchRevenueByPrisma() {
         console.log('Fetching revenue data...');
         await new Promise((resolve) => setTimeout(resolve, 3000));
         const data = await prisma.revenue.findMany();
-        console.log('Data fetch completed after 3 seconds.', data);
+        //console.log('Data fetch completed after 3 seconds.', data);
         prisma.$disconnect();
         return data;
     } catch (error) {

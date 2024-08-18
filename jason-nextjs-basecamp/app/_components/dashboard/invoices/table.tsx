@@ -1,9 +1,15 @@
-import {fetchFilteredInvoices} from "@/app/_lib/service/invoice-service";
+"use client";
+
+import {deleteInvoice, fetchFilteredInvoices} from "@/app/_lib/service/invoice-service";
 import InvoiceStatus from "@/app/_components/dashboard/invoices/status";
 import {formatCurrency, formatDateToLocal} from "@/app/_lib/utils/utils";
 import Image from "next/image";
-import {DeleteInvoice, UpdateInvoice} from "@/app/_components/buttons/button";
+import {UpdateInvoiceButton} from "@/app/_components/buttons/ButtonCollection";
+import {TrashIcon} from "@heroicons/react/24/outline";
+import React from "react";
 
+// this InvoiceTable component is a server rendering component
+// it is used to display the invoices in a table format
 export default async function InvoicesTable({
                                                 query,
                                                 currentPage,
@@ -11,7 +17,19 @@ export default async function InvoicesTable({
     query: string;
     currentPage: number;
 }) {
+
+    // here, firstly, it fetches the invoices based on the query and the current page
     const invoices = await fetchFilteredInvoices(query, currentPage);
+
+    const onDeleteClick = async (id: string) => {
+        try {
+            if (id) {
+                const res = await deleteInvoice(id);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <div className="mt-6 flow-root">
@@ -47,15 +65,19 @@ export default async function InvoicesTable({
                                         <p>{formatDateToLocal(invoice.date)}</p>
                                     </div>
                                     <div className="flex justify-end gap-2">
-                                        <UpdateInvoice id={invoice.id}/>
-                                        <DeleteInvoice id={invoice.id}/>
+                                        <UpdateInvoiceButton id={invoice.id}/>
+                                        <button className="rounded-md border p-2 hover:bg-gray-100"
+                                                onClick={()=>onDeleteClick(invoice.id)}>
+                                            <span className="sr-only">Delete</span>
+                                            <TrashIcon className="w-5"/>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
                     <table className="hidden min-w-full text-gray-900 md:table">
-                        <thead className="rounded-lg text-left text-sm font-normal">
+                    <thead className="rounded-lg text-left text-sm font-normal">
                         <tr>
                             <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
                                 Customer
@@ -109,8 +131,12 @@ export default async function InvoicesTable({
                                 </td>
                                 <td className="whitespace-nowrap py-3 pl-6 pr-3">
                                     <div className="flex justify-end gap-3">
-                                        <UpdateInvoice id={invoice.id}/>
-                                        <DeleteInvoice id={invoice.id}/>
+                                        <UpdateInvoiceButton id={invoice.id}/>
+                                        <button className="rounded-md border p-2 hover:bg-gray-100"
+                                                onClick={()=>onDeleteClick(invoice.id)}>
+                                            <span className="sr-only">Delete</span>
+                                            <TrashIcon className="w-5"/>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

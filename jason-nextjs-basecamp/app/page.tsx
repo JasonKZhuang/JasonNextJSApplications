@@ -30,19 +30,25 @@ export default function Home() {
                     >
                         <span>Log in</span> <FaArrowRight className="w-5 md:w-6"/>
                     </Link>
-                    <Link href={"/login"}
+                    <Link href={"/dashboard"}
+                          className="flex items-center gap-3 self-start rounded-lg bg-blue-500 px-6 py-3
+                                     text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
+                    >
+                        <span>Dashboard</span> <FaArrowRight className="w-5 md:w-6"/>
+                    </Link>
+                    <Link href={"/users"}
                           className="flex items-center gap-3 self-start rounded-lg bg-blue-500 px-6 py-3
                                      text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
                     >
                         <span>Users</span> <FaArrowRight className="w-5 md:w-6"/>
                     </Link>
-                    <Link href={"/login"}
+                    <Link href={"/posts"}
                           className="flex items-center gap-3 self-start rounded-lg bg-blue-500 px-6 py-3
                                      text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
                     >
                         <span>Posts</span> <FaArrowRight className="w-5 md:w-6"/>
                     </Link>
-                    <Link href={"/login"}
+                    <Link href={"/products"}
                           className="flex items-center gap-3 self-start rounded-lg bg-blue-500 px-6 py-3
                                      text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
                     >

@@ -102,7 +102,9 @@ This will keep your database schema in sync with your Prisma schema. The command
    - How you want the user to experience the page as it streams.
    - What content you want to prioritize.
    - If the components rely on data fetching.
-4. Partial PreRendering (PPR) (https://nextjs.org/learn/dashboard-app/partial-prerendering)    
+4. [Partial PreRendering (PPR)](https://nextjs.org/learn/dashboard-app/partial-prerendering)  
+5. [Mutating Data](https://nextjs.org/learn/dashboard-app/mutating-data#6-revalidate-and-redirect)      
+6. [Error Handling](https://nextjs.org/learn/dashboard-app/error-handling)    
 
 
 
@@ -119,7 +121,7 @@ This will keep your database schema in sync with your Prisma schema. The command
 [React Query - Complete Tutorial](https://www.youtube.com/watch?v=8K1N3fE-cDs)  
 [Using Forms in Next.js](https://www.youtube.com/watch?v=dDpZfOQBMaU)  
 [prisma ORM](https://www.prisma.io/)  
-
+[React Hook Form - Complete Tutorial (with Zod)](https://www.youtube.com/watch?v=cc_xmawJ8Kg)  
 ### Public data APIs 
 [{JSON} Placeholder](https://jsonplaceholder.typicode.com)  
 [Restcountries](https://restcountries.com/v2/all)  
