@@ -8,6 +8,11 @@ import UserLoading from "@/app/users/loading";
 import UserList from "@/app/_components/user/user-list";
 import UserDataService from "@/app/_lib/service/user-data-service";
 import styles from './styles.module.css'
+import {redirect} from "next/navigation";
+import {getSession, login, logout} from "@/app/_lib/users/user-auth-service";
+import SignIn from "@/app/_components/user/sign-in";
+import SignOut from "@/app/_components/user/sign-out";
+import {SignUp} from "@/app/_components/user/sign-up";
 
 // define some method here for fetching data or call some service
 async function getData() {
@@ -23,7 +28,9 @@ async function getData() {
     return res.json()
 }
 
-async function UserHomePage() {
+export default async function UserHomePage() {
+    // wait for the session to be available
+    const session = await getSession();
     // using await to get data from server side
     const users = await UserDataService.getInstance().myGetUsersByFetch();
 
@@ -34,14 +41,18 @@ async function UserHomePage() {
                 <h1 className="text-4xl text-center">User Page</h1>
                 <h2>This is Server Component Style from Global CSS</h2>
                 <h2 className={styles.userH2}>This is Server Component from module css</h2>
-
                 <Link href="/" className="text-2xl underline my-2">Go to Home</Link>
             </div>
             <Suspense fallback={<UserLoading/>}>
                 <UserList argUsers={users}/>
             </Suspense>
+            <section className={"flex flex-col justify-center items-center w-full bg-cyan-500"}>
+                <SignUp />
+                <SignIn/>
+                <SignOut/>
+
+                <pre>{JSON.stringify(session, null, 2)}</pre>
+            </section>
         </div>
     );
 }
-
-export default UserHomePage;

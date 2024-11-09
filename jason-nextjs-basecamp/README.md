@@ -3,6 +3,7 @@
 [next-learn GitHub Repo Final](https://github.com/vercel/next-learn/tree/main/dashboard/final-example)  
 [Setting Up Your Database](https://nextjs.org/learn/dashboard-app/setting-up-your-database)  
 
+## Next.js
 ### Create Next.js App
 ```shell
 npx create-next-app@latest --ts
@@ -38,9 +39,17 @@ pnpm start # to run the app in production mode
 - By default, pages are Server Components.
 - You can access the route segments through the **params** prop and the URL search params through the **searchParams** prop for a given page.
 
-### [Routing File Conventions and Component Hierarchy](https://nextjs.org/docs/app/building-your-application/routing)  
+### Server Side and Client Side Getting parameters
+- searchParams page prop
+- URLSearchParams
+- useSearchParams hook
+- useRouter hook
+- usePathname hook
 
-### CSS Styling
+### Next.js Routing
+ [Routing File Conventions and Component Hierarchy](https://nextjs.org/docs/app/building-your-application/routing)    
+
+### Next.js CSS Styling
 1. global css added into root layout.tsx
 2. Tailwind CSS configuration added into tailwind.config.js and global css
 3. CSS Modules added into the components folder,
@@ -53,21 +62,21 @@ pnpm start # to run the app in production mode
 
 ### Layouts and Pages
 
-### set up Next.js with Prisma
+
+## Next.js integrates Prisma
 [Prisma ORM with PostgreSQL](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-typescript-postgresql)  
- ```shell
- npx prisma init
- ```
-
-✔ Your Prisma schema was created at prisma/schema.prisma
-You can now open it in your favorite editor.
-
-Next steps:
-1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
-2. Set the provider of the datasource block in schema.prisma to match your database: postgresql, mysql, sqlite, sqlserver, mongodb or cockroachdb.
-3. Run prisma db pull to turn your database schema into a Prisma schema.
-4. Run prisma generate to generate the Prisma Client. You can then start querying your database.
-5. Tip: Explore how you can extend the ORM with scalable connection pooling, global caching, and real-time database events. Read: https://pris.ly/beyond-the-orm
+- prisma initialize
+    ```shell
+    npx prisma init
+    ```
+   ✔ Your Prisma schema was created at prisma/schema.prisma
+   You can now open it in your favorite editor.
+- Next steps:
+  1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
+  2. Set the provider of the datasource block in schema.prisma to match your database: postgresql, mysql, sqlite, sqlserver, mongodb or cockroachdb.
+  3. Run prisma db pull to turn your database schema into a Prisma schema.
+  4. Run prisma generate to generate the Prisma Client. You can then start querying your database.
+  5. Tip: Explore how you can extend the ORM with scalable connection pooling, global caching, and real-time database events. Read: https://pris.ly/beyond-the-orm
 
 To map your data model to the database schema, you need to use the prisma migrate CLI commands:
 ```shell
@@ -89,6 +98,11 @@ prisma db push
 ```
 This will keep your database schema in sync with your Prisma schema. The commands will also regenerate Prisma Client.
 
+
+## Next.js with Auth0
+[Github nextjs-auth0](https://github.com/auth0/nextjs-auth0)  
+1. I need to know how to start the integation with Auth0, [here](https://auth0.com/docs/quickstart/webapp/nextjs#install-the-auth0-next-js-sdk)  
+2.[review all nextjs-autho examples](https://github.com/auth0/nextjs-auth0/blob/main/EXAMPLES.md)   
 
 ### Tasks
 1. Add a navigation bar, sticky to the top of the page, with the following links:

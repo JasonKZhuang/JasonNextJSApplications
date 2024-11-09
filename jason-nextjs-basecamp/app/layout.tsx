@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import "@/app/_styles/globals.css";
-import { inter } from '@/app/_components/fonts';
+import {inter} from '@/app/_components/fonts';
+import {UserProvider} from "@auth0/nextjs-auth0/client";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-                                      children,
+                                       children,
                                    }: Readonly<{
     children: React.ReactNode;
 }>) {
@@ -17,8 +18,10 @@ export default function RootLayout({
             <body suppressContentEditableWarning={true}
                   className={`${inter.className} antialiased`}
             >
-                {/*Tailwind antialiased class which smooths out the font.*/}
-                {children}
+                <UserProvider>
+                    {/*Tailwind antialiased class which smooths out the font.*/}
+                    {children}
+                </UserProvider>
             </body>
         </html>
     );
